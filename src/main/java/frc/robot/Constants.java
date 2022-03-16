@@ -44,15 +44,20 @@ public final class Constants {
         public static final double PHYSICAL_MAX_SPEED_METERS_PER_SECOND = 1.0;
         public static final double PHYSICAL_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 1.0 * 1.0 * Math.PI;
 
-        public static final int GIRAFFE_DRIVE_MOTOR_ID = 2;
-        public static final int HORSE_DRIVE_MOTOR_ID = 12;
-        public static final int SUSHI_DRIVE_MOTOR_ID = 15;
-        public static final int BIRD_DRIVE_MOTOR_ID = 1;
+        public static final int GIRAFFE_TURN_MOTOR_ID = 2;
+        public static final int HORSE_TURN_MOTOR_ID = 12;
+        public static final int SUSHI_TURN_MOTOR_ID = 15;
+        public static final int BIRD_TURN_MOTOR_ID = 1;
 
-        public static final int GIRAFFE_TURN_MOTOR_ID = 3;
-        public static final int HORSE_TURN_MOTOR_ID = 13;
-        public static final int SUSHI_TURN_MOTOR_ID = 14;
-        public static final int BIRD_TURN_MOTOR_ID = 20;
+        public static final int GIRAFFE_TURN_MOTOR_ENCODER_OFFSET = 460;
+        public static final int HORSE_TURN_MOTOR_ENCODER_OFFSET = 380;
+        public static final int SUSHI_TURN_MOTOR_ENCODER_OFFSET = -206;
+        public static final int BIRD_TURN_MOTOR_ENCODER_OFFSET = 100;
+
+        public static final int GIRAFFE_DRIVE_MOTOR_ID = 3;
+        public static final int HORSE_DRIVE_MOTOR_ID = 13;
+        public static final int SUSHI_DRIVE_MOTOR_ID = 14;
+        public static final int BIRD_DRIVE_MOTOR_ID = 20;
         
         public static final boolean GIRAFFE_DRIVE_MOTOR_REVERSED = false;
         public static final boolean HORSE_DRIVE_MOTOR_REVERSED = false;
@@ -76,5 +81,14 @@ public final class Constants {
         public static final int DRIVER_FIELD_ORIENTED_BUTTON_INDEX = 1;
 
         public static final double DEADZONE = 0.05;
+    }
+
+    public static final class KeyCodes { 
+        public static final int FORWARD_KEY = 83; // 83
+        public static final int BACKWARD_KEY = 87; // 87 
+        public static final int LEFT_KEY = 65;
+        public static final int RIGHT_KEY = 68;
+        public static final int ROTATE_LEFT_KEY = 39;
+        public static final int ROTATE_RIGHT_KEY = 37;
     }
 }

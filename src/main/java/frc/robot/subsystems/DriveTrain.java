@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -15,24 +16,28 @@ public class DriveTrain extends SubsystemBase {
     private final SwerveModule m_bird = new SwerveModule(
             Constants.DriveTrain.BIRD_DRIVE_MOTOR_ID,
             Constants.DriveTrain.BIRD_TURN_MOTOR_ID,
+            Constants.DriveTrain.BIRD_TURN_MOTOR_ENCODER_OFFSET,
             Constants.DriveTrain.BIRD_DRIVE_MOTOR_REVERSED,
             Constants.DriveTrain.BIRD_TURN_MOTOR_REVERSED);
 
     private final SwerveModule m_sushi = new SwerveModule(
             Constants.DriveTrain.SUSHI_DRIVE_MOTOR_ID,
             Constants.DriveTrain.SUSHI_TURN_MOTOR_ID,
+            Constants.DriveTrain.SUSHI_TURN_MOTOR_ENCODER_OFFSET,
             Constants.DriveTrain.SUSHI_DRIVE_MOTOR_REVERSED,
             Constants.DriveTrain.SUSHI_TURN_MOTOR_REVERSED);
 
     private final SwerveModule m_horse = new SwerveModule(
             Constants.DriveTrain.HORSE_DRIVE_MOTOR_ID,
             Constants.DriveTrain.HORSE_TURN_MOTOR_ID,
+            Constants.DriveTrain.HORSE_TURN_MOTOR_ENCODER_OFFSET,
             Constants.DriveTrain.HORSE_DRIVE_MOTOR_REVERSED,
             Constants.DriveTrain.HORSE_TURN_MOTOR_REVERSED);
 
     private final SwerveModule m_giraffe = new SwerveModule(
             Constants.DriveTrain.GIRAFFE_DRIVE_MOTOR_ID,
             Constants.DriveTrain.GIRAFFE_TURN_MOTOR_ID,
+            Constants.DriveTrain.GIRAFFE_TURN_MOTOR_ENCODER_OFFSET,
             Constants.DriveTrain.GIRAFFE_DRIVE_MOTOR_REVERSED,
             Constants.DriveTrain.GIRAFFE_TURN_MOTOR_REVERSED);
 
@@ -80,6 +85,13 @@ public class DriveTrain extends SubsystemBase {
         m_giraffe.stop();
         m_sushi.stop();
         m_bird.stop();
+    }
+
+    public void testTurning() {
+        m_horse.testTurning();
+        m_giraffe.testTurning();
+        m_sushi.testTurning();
+        m_bird.testTurning();
     }
 
     public void setModuleStates(SwerveModuleState[] desiredStates) {

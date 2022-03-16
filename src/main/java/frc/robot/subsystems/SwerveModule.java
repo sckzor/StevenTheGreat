@@ -19,9 +19,11 @@ import frc.robot.Constants;
 public class SwerveModule extends SubsystemBase {
     private final CANSparkMax m_driveMotor;
     private final TalonSRX m_turnMotor;
+    private final int m_turnMotorEncoderOffset;
     private final RelativeEncoder m_driveEncoder;
 
-    public SwerveModule(int driveMotorId, int turnMotorId, boolean driveMotorReversed, boolean turnMotorReversed) {
+    public SwerveModule(int driveMotorId, int turnMotorId, int turnMotorEncoderOffset, boolean driveMotorReversed, boolean turnMotorReversed) {
+        m_turnMotorEncoderOffset = turnMotorEncoderOffset;
         m_driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
         m_driveMotor.setInverted(driveMotorReversed);
         m_driveEncoder = m_driveMotor.getEncoder();
@@ -44,7 +46,8 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public double getTurningPosition() {
-        return (m_turnMotor.getSelectedSensorPosition() / 4096) * 2 * Math.PI;
+        double angle = ((m_turnMotor.getSelectedSensorPosition() + m_turnMotorEncoderOffset) / 4096) * 2 * Math.PI;
+        return angle;
     }
 
     public void resetEncoders() {
@@ -55,6 +58,10 @@ public class SwerveModule extends SubsystemBase {
         return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningPosition()));
     }
 
+    public void testTurning() {
+        m_turnMotor.set(TalonSRXControlMode.Position, m_turnMotorEncoderOffset);
+    }
+    
     public void setDesiredState(SwerveModuleState state) {
         if (Math.abs(state.speedMetersPerSecond) < 0.001) {
             stop();
@@ -62,7 +69,7 @@ public class SwerveModule extends SubsystemBase {
         }
         state = SwerveModuleState.optimize(state, getState().angle);
         m_driveMotor.set(state.speedMetersPerSecond / Constants.DriveTrain.PHYSICAL_MAX_SPEED_METERS_PER_SECOND);
-        m_turnMotor.set(TalonSRXControlMode.Position, (state.angle.getRadians() / (Math.PI * 2)) * 4096);
+        m_turnMotor.set(TalonSRXControlMode.Position, ((state.angle.getRadians() / (Math.PI * 2)) * 4096) + m_turnMotorEncoderOffset);
     }
 
     public void stop() {
